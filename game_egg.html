@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Події клавіатури 1_2</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        canvas{
+            border: 5px solid black;
+            background-image: url(background.png);
+            background-size: cover;
+        }
+        </style>
+	</head>
+	<body>
+		<canvas id="canvas" width="320" height="586"></canvas>
+		<script>
+            
+			const canvas = document.getElementById("canvas");
+			const ctx = canvas.getContext("2d");
+
+            let timeLeft = 60; // 60 секунд
+            let clicks = 0;
+            let gameOver = false;
+
+            var eggX = 80;
+            var eggY = 120;
+
+            function drawEgg() {
+                ctx.beginPath();
+                ctx.fillStyle = "wheat";
+                ctx.strokeStyle = "black";
+                if(clicks>=500){
+                    ctx.fillStyle = "ghostwhite";
+                }
+                ctx.ellipse(canvas.width/2, canvas.height/2, eggX, eggY, 0, 0, Math.PI*2); // центр по середині
+                ctx.fill();
+                ctx.stroke();
+
+
+                if(clicks>=100 && clicks<200){
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2-80, canvas.height/2);
+                    ctx.lineTo(canvas.width/2-60, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2-40, canvas.height/2)
+                    // ctx.lineTo(canvas.width/2-20, canvas.height/2-40)
+                    // ctx.lineTo(canvas.width/2, canvas.height/2)
+                    // ctx.lineTo(canvas.width/2+20, canvas.height/2-40)
+                    // ctx.lineTo(canvas.width/2+40, canvas.height/2)
+                    // ctx.lineTo(canvas.width/2+60, canvas.height/2-40)
+                    // ctx.lineTo(canvas.width/2+80, canvas.height/2)
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                if(clicks>=200 && clicks<300){
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2-80, canvas.height/2);
+                    ctx.lineTo(canvas.width/2-60, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2-40, canvas.height/2)
+                    ctx.lineTo(canvas.width/2-20, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2, canvas.height/2)
+                    // ctx.lineTo(canvas.width/2+20, canvas.height/2-40)
+                    // ctx.lineTo(canvas.width/2+40, canvas.height/2)
+                    // ctx.lineTo(canvas.width/2+60, canvas.height/2-40)
+                    // ctx.lineTo(canvas.width/2+80, canvas.height/2)
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                if(clicks>=300 && clicks<=400){
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2-80, canvas.height/2);
+                    ctx.lineTo(canvas.width/2-60, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2-40, canvas.height/2)
+                    ctx.lineTo(canvas.width/2-20, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2, canvas.height/2)
+                    ctx.lineTo(canvas.width/2+20, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2+40, canvas.height/2)
+                    // ctx.lineTo(canvas.width/2+60, canvas.height/2-40)
+                    // ctx.lineTo(canvas.width/2+80, canvas.height/2)
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                if(clicks>=400){
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2-80, canvas.height/2);
+                    ctx.lineTo(canvas.width/2-60, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2-40, canvas.height/2)
+                    ctx.lineTo(canvas.width/2-20, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2, canvas.height/2)
+                    ctx.lineTo(canvas.width/2+20, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2+40, canvas.height/2)
+                    ctx.lineTo(canvas.width/2+60, canvas.height/2-40)
+                    ctx.lineTo(canvas.width/2+80, canvas.height/2)
+                    ctx.fill();
+                    ctx.stroke();
+                }
+            }
+
+            function drawBrokeEgg() {
+                ctx.beginPath();
+                ctx.fillStyle = "wheat";
+                ctx.fillStroke = "black";
+                ctx.ellipse(canvas.width/2, canvas.height/2, eggX, eggY, 0, 0, Math.PI); // центр по середині
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2-80, canvas.height/2);
+                ctx.lineTo(canvas.width/2-60, canvas.height/2-40)
+                ctx.lineTo(canvas.width/2-40, canvas.height/2)
+                ctx.lineTo(canvas.width/2-20, canvas.height/2-40)
+                ctx.lineTo(canvas.width/2, canvas.height/2)
+                ctx.lineTo(canvas.width/2+20, canvas.height/2-40)
+                ctx.lineTo(canvas.width/2+40, canvas.height/2)
+                ctx.lineTo(canvas.width/2+60, canvas.height/2-40)
+                ctx.lineTo(canvas.width/2+80, canvas.height/2)
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            //ципля
+            function drawChick() {
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2 - 60;
+
+                // тіло
+                ctx.beginPath();
+                ctx.fillStyle = "yellow";
+                ctx.ellipse(cx, cy, 80, 100, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // ліве око
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.arc(cx - 30, cy - 20, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // праве око
+                ctx.beginPath();
+                ctx.arc(cx + 30, cy - 20, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // зіниці
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.arc(cx - 30, cy - 20, 7, 0, Math.PI * 2);
+                ctx.arc(cx + 30, cy - 20, 7, 0, Math.PI * 2);
+                ctx.fill();
+
+                // дзьоб
+                ctx.beginPath();
+                ctx.fillStyle = "orange";
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx - 15, cy + 20);
+                ctx.lineTo(cx + 15, cy + 20);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // ліве крило
+                ctx.beginPath();
+                ctx.fillStyle = "gold";
+                ctx.ellipse(cx - 100, cy + 10, 30, 20, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // праве крило
+                ctx.beginPath();
+                ctx.ellipse(cx + 100, cy + 10, 30, 20, -5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+
+            function drawSnake() {
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                // тіло 
+                ctx.beginPath();
+                ctx.fillStyle = "green";
+                ctx.fillStroke = "black";
+                ctx.ellipse(cx, cy, 30, 120, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // голова
+                ctx.beginPath();
+                ctx.fillStyle = "darkgreen";
+                ctx.fillStroke = "black";
+                ctx.arc(cx, cy - 140, 40, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // ліве око
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.fillStroke = "black";
+                ctx.arc(cx - 12, cy - 150, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // праве око
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.fillStroke = "black";
+                ctx.arc(cx + 12, cy - 150, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // зіниці
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.arc(cx - 12, cy - 150, 4, 0, Math.PI * 2);
+                ctx.arc(cx + 12, cy - 150, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // рот
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.arc(cx, cy-125, 10, 0, Math.PI);
+                ctx.fill();
+
+                // язик
+                ctx.beginPath();
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = 2;
+                ctx.moveTo(cx, cy - 120);
+                ctx.lineTo(cx, cy - 90);
+                ctx.lineTo(cx - 8, cy - 80);
+                ctx.moveTo(cx, cy - 90);
+                ctx.lineTo(cx + 8, cy - 80);
+                ctx.stroke();
+                ctx.strokeStyle = "black";
+
+            }
+
+            function drawTurtle() {
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                // панцир
+                ctx.beginPath();
+                ctx.fillStyle = "darkgreen";
+                ctx.ellipse(cx, cy-20, 60, 70, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // живіт
+                ctx.beginPath();
+                ctx.fillStyle = "bisque";
+                ctx.strokeStyle = "black";
+                ctx.ellipse(cx, cy, 50, 80, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // візерунок на животі
+                ctx.beginPath();
+                ctx.strokeStyle = "black";
+                for (let i = -35; i <= 30; i += 20) {
+                    for (let j = -50; j <= 30; j += 20) {
+                        ctx.moveTo(cx + i, cy + j);
+                        ctx.lineTo(cx + i + 10, cy + j + 10);
+                    }
+                }
+                ctx.stroke();
+
+                // голова
+                ctx.beginPath();
+                ctx.fillStyle = "green";
+                ctx.arc(cx, cy - 110, 40, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // ліве око
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.arc(cx - 12, cy - 115, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.arc(cx - 12, cy - 115, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // праве око
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.arc(cx + 12, cy - 115, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.arc(cx + 12, cy - 115, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+
+                // лапки
+                // ліва верхня
+                ctx.beginPath();
+                ctx.fillStyle = "darkgreen";
+                ctx.ellipse(cx - 70, cy - 65, 25, 15, -5.2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // Ліва верхня лапка - 3 кігтики
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(cx - 85, cy - 85);
+                ctx.lineTo(cx - 90, cy - 95);
+                ctx.moveTo(cx - 80, cy - 85);
+                ctx.lineTo(cx - 85, cy - 95);
+                ctx.moveTo(cx - 75, cy - 85);
+                ctx.lineTo(cx - 80, cy - 95);
+                ctx.stroke();
+                ctx.lineWidth = 1;
+
+                // права верхня
+                ctx.beginPath();
+                ctx.fillStyle = "darkgreen";
+                ctx.ellipse(cx + 70, cy - 65, 25, 15, 5.2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // Права верхня лапка - 3 кігтики
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(cx + 85, cy - 85);
+                ctx.lineTo(cx + 90, cy - 95);
+                ctx.moveTo(cx + 80, cy - 85);
+                ctx.lineTo(cx + 85, cy - 95);
+                ctx.moveTo(cx + 75, cy - 85);
+                ctx.lineTo(cx + 80, cy - 95);
+                ctx.stroke();
+                ctx.lineWidth = 1;
+
+                // рот
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.strokeStyle = "red";
+                ctx.arc(cx, cy-100, 10, 0, Math.PI);
+                ctx.stroke();
+
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 1;
+            }
+
+            function drawBlueMonster() {
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                // тіло
+                ctx.beginPath();
+                ctx.fillStyle = "blue";
+                ctx.ellipse(cx, cy, 60, 100, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // голова
+                ctx.beginPath();
+                ctx.fillStyle = "blue";
+                ctx.arc(cx, cy - 120, 40, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // ліве око
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.arc(cx - 15, cy - 125, 10, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.arc(cx - 15, cy - 125, 5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // праве око
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.arc(cx + 15, cy - 125, 10, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.arc(cx + 15, cy - 125, 5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // зуби (маленькі трикутники)
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                for (let i = -20; i <= 20; i += 10) {
+                    let x = cx + i;
+                    ctx.moveTo(x, cy - 100);
+                    ctx.lineTo(x - 5, cy - 90);
+                    ctx.lineTo(x + 5, cy - 90);
+                    ctx.closePath();
+                }
+                ctx.fill();
+                ctx.stroke();
+
+                // лапки
+                // ліва верхня
+                ctx.beginPath();
+                ctx.ellipse(cx - 50, cy - 60, 20, 10, -5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+                // права верхня
+                ctx.beginPath();
+                ctx.ellipse(cx + 50, cy - 60, 20, 10, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            function drawDragon() {
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                const img = new Image();
+                img.src = "dragon.png"; // URL картинки дракона
+                    const width = 800;   // ширина картинки на канвасі
+                    const height = 400;  // висота картинки
+                    ctx.drawImage(img, cx - width/2, cy - height/2, width, height);
+            }
+
+
+
+
+
+
+
+            function drawTimer() {
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "black";
+                ctx.fillText("Time: " + timeLeft, 10, 25);
+            }
+
+            function drawClicker() {
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "black";
+                ctx.fillText("Clicks: " + clicks, 10, canvas.height - 10);
+            }
+
+            $(canvas).click(function(e) {
+                if (gameOver) return;
+
+                const x = e.offsetX;
+                const y = e.offsetY;
+
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+
+                const radiusX = eggX;
+                const radiusY = eggY;
+
+                if (
+                    ((x - centerX) ** 2) / (radiusX ** 2) +
+                    ((y - centerY) ** 2) / (radiusY ** 2) <= 1
+                ) {
+                    clicks++;
+                }
+            });
+
+            setInterval(function() {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                } else {
+                    gameOver = true;
+                }
+            }, 1000);
+
+            setInterval(function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                drawTimer();
+                drawClicker();
+
+                if (gameOver) {
+                    if(clicks<99){
+                        drawBrokeEgg()
+                    }
+                    if(clicks>100 && clicks<199){
+                        drawChick();
+                        drawBrokeEgg()
+                    }
+                    if(clicks>200 && clicks<299){
+                        drawSnake();
+                        drawBrokeEgg();
+                    }
+                    if(clicks>300 && clicks<399){
+                        drawTurtle();
+                        drawBrokeEgg();
+                    }
+                    if(clicks>400 && clicks<499){
+                        drawBlueMonster();
+                        drawBrokeEgg();
+                    }
+                    if(clicks>500){
+                        drawDragon();
+                    }
+                } else {
+                    drawEgg();
+                }
+
+            }, 100);
+
+
+
+		</script>
+	</body>
+</html>
